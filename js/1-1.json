@@ -1,0 +1,319 @@
+{
+    "things": [
+        {
+            "position": {
+                "X": 38,
+                "Y": 20
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 0,
+                "Y": 16
+            },
+            "type": "lava"
+        },
+        {
+            "position": {
+                "X": 8,
+                "Y": 8
+            },
+            "type": "house"
+        },
+        {
+            "position": {
+                "X": 26,
+                "Y": 14
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 8,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 16,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 24,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 32,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 40,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 48,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 56,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 64,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 72,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 80,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 88,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 96,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 104,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 112,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 120,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 128,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 136,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 144,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 152,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 160,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 168,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 176,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 184,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 192,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 200,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 208,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 216,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 224,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 232,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 240,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 248,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 256,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 264,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 272,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 280,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 288,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 296,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 304,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 312,
+                "Y": 24
+            },
+            "type": "ground"
+        },
+        {
+            "position": {
+                "X": 30,
+                "Y": 14
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 34,
+                "Y": 14
+            },
+            "type": "block"
+        }
+    ]
+}

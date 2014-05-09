@@ -1,0 +1,18 @@
+{
+    "author": "Armen138",
+    "contributors": [
+        {
+            "homepage": "http://armen138.com",
+            "name": "Armen138"
+        }
+    ],
+    "dependencies": {
+        "jsgtb": "git://github.com/Armen138/jsgtb.git",
+        "grunt": "~0.4.1",
+        "grunt-browserify2": "~0.1.8",
+        "grunt-contrib-jshint": "~0.6.0",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-exec": "*"
+    },
+    "name": "superpixelboy"
+}

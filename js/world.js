@@ -1,0 +1,203 @@
+/*jshint node:true, bitwise:false */
+'use strict';
+
+var Thing = require('./thing');
+
+var World = function(game, data) {
+    var resources = new game.Resources();
+    var things = [];
+    var render = {};
+    var map = [];
+    var x, y;
+    for(x = 0; x < 320; x++) {
+        map[x] = [];
+        for(y = 0; y < 32; y++) {
+            map[x][y] = 0;
+        }
+    }
+    render.lava = {
+        image: resources.lava,
+        size: {
+            width: 8,
+            height: 16
+        },
+        bbox: {
+            X: 0,
+            Y: 11,
+            width: 8,
+            height: 5
+        },
+        animations: {
+            idle: {
+                frames: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8],
+                fps: 10
+            }
+        }
+    };
+    render.enemy = {
+        image: resources.enemy,
+        bbox: {
+            X: 1,
+            Y: 0,
+            width: 2,
+            height: 4
+        },
+        size: {
+            width: 4,
+            height: 4
+        },
+        animations: {
+            idle: {
+                frames: [0, 1],
+                fps: 5
+            },
+            death: {
+                frames: [0, 1, 2, 3, 4, 5],
+                fps: 10,
+                noloop: true
+            }
+        }
+    };
+    render.ground = {
+        image: resources.ground,
+        size: {
+            width: 8,
+            height: 8
+        },
+        animations: {
+            idle: {
+                frames: [0],
+                fps: 0
+            }
+        }
+    };
+    render.house = {
+        image: resources.house,
+        size: {
+            width: 16,
+            height: 16
+        },
+        bbox: {
+            X: 0,
+            Y: 7,
+            width: 16,
+            height: 1
+        },
+        animations: {
+            idle: {
+                frames: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7],
+                fps: 10
+            }
+        }
+    };
+    render.block = {
+        image: resources.block,
+        size: {
+            width: 2,
+            height: 5
+        },
+        bbox: {
+            X: 0,
+            Y: 3,
+            width: 2,
+            height: 1
+        },
+        animations: {
+            idle: {
+                frames: [0],
+                fps: 0
+            },
+            bump: {
+                frames: [0, 1],
+                fps: 5,
+                noloop: true
+            },
+            vanish: {
+                frames: [0, 2, 3],
+                fps: 5,
+                noloop: true
+            }
+        }
+    };
+    var world = new game.Object();
+    world({
+        draw: function(canvas) {
+            for(var i = 0; i < things.length; i++) {
+                things[i].draw(canvas);
+            }
+        },
+        collides: function(x, y) {
+            return map[x][y].gone ? null : map[x][y];
+        },
+        remove: function(thing) {
+            console.log('trying to remove thing');
+            for(var i = 0; i < things.length; i++) {
+                if(things[i] === thing) {
+                    thing.gone = true;
+                    things.splice(i, 1);
+                    break;
+                }
+            }
+        },
+        add: function(thing) {
+            things.push(
+                    new Thing(game,
+                        thing.position.X,
+                        thing.position.Y,
+                        render[thing.type],
+                        thing.type)
+            );
+            var bbox = render[thing.type].bbox || {
+                X: 0,
+                Y: 0,
+                width: render[thing.type].size.width,
+                height: render[thing.type].size.height
+            };
+            for(x = bbox.X; x < bbox.X + bbox.width; x++) {
+                for(y = bbox.Y; y < bbox.Y + bbox.height; y++) {
+                    map [thing.position.X + x]
+                        [thing.position.Y + y] = things[things.length - 1];
+                }
+            }
+        },
+        dump: function() {
+            var data = { things: [] };
+            for(var i = 0; i < things.length; i++) {
+                data.things.push({
+                    type: things[i].type,
+                    position: things[i].position
+                });
+            }
+            console.log(data);
+            console.log(JSON.stringify(data));
+        }
+    });
+    if(data && data.things) {
+        for(var i = 0; i < data.things.length; i++) {
+            world.add(data.things[i]);
+            /*
+            things.push(
+                    new Thing(game,
+                        data.things[i].position.X,
+                        data.things[i].position.Y,
+                        render[data.things[i].type],
+                        data.things[i].type)
+            );
+            var bbox = render[data.things[i].type].bbox || {
+                X: 0, //data.things[i].position.X,
+                Y: 0, //.data.things[i].position.Y,
+                width: render[data.things[i].type].size.width,
+                height: render[data.things[i].type].size.height
+            };
+            for(x = bbox.X; x < bbox.X + bbox.width; x++) {
+                for(y = bbox.Y; y < bbox.Y + bbox.height; y++) {
+                    map [data.things[i].position.X + x]
+                        [data.things[i].position.Y + y] = things[things.length - 1];
+                }
+            }*/
+        }
+    }
+    return world;
+};
+
+module.exports = World;
