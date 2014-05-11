@@ -24,7 +24,7 @@ var Character = function(game, x, y) {
                 frames: [0, 0, 0, 5],
                 fps: 2
             },
-            death: {
+            wall: {
                 frames: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 15, 15, 15, 15, 15],
                 fps: 10,
                 noloop: true
@@ -78,20 +78,6 @@ var Character = function(game, x, y) {
             var now = Date.now();
             if(now - action > 100) {
                 action = now;
-                if(!dying) {
-                    switch(moving) {
-                        case 'idle':
-                            break;
-                        case 'right':
-                            character.setAnimation('walk');
-                            character.position.X++;
-                            break;
-                        case 'left':
-                            character.setAnimation('walk');
-                            character.position.X--;
-                            break;
-                    }
-                }
                 var leftFoot = world.collides(character.position.X + 1, character.position.Y + 4);
                 var rightFoot = world.collides(character.position.X + 2, character.position.Y + 4);
                 if (!leftFoot && !rightFoot) {
@@ -118,10 +104,16 @@ var Character = function(game, x, y) {
                 for(var lf = 0; lf < 4; lf++) {
                     var box = world.collides(character.position.X, character.position.Y + lf);
                     if(box && box.type === 'enemy') { die(); }
+                    if(box && moving === 'left') {
+                        moving = 'idle';
+                    }
                     box = world.collides(character.position.X + 3, character.position.Y + lf);
                     if(box && box.type === 'enemy') { die(); }
+                    if(box && moving === 'right') {
+                        moving = 'idle';
+                    }
                 }
-                if(jumpTime < 7) {
+                if(jumpTime < 8) {
                     character.position.Y--;
                     jumpTime++;
                     var head1 = world.collides(character.position.X + 1, character.position.Y - 1);
@@ -154,6 +146,20 @@ var Character = function(game, x, y) {
                     if(!grounded) {
                         character.position.Y++;
 
+                    }
+                }
+                if(!dying) {
+                    switch(moving) {
+                        case 'idle':
+                            break;
+                        case 'right':
+                            character.setAnimation('walk');
+                            character.position.X++;
+                            break;
+                        case 'left':
+                            character.setAnimation('walk');
+                            character.position.X--;
+                            break;
                     }
                 }
             }

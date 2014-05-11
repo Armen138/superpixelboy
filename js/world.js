@@ -71,6 +71,44 @@ var World = function(game, data) {
             }
         }
     };
+    render.wall = {
+        image: resources.wall,
+        size: {
+            width: 8,
+            height: 8
+        },
+        bbox: {
+            X: 0,
+            Y: 2,
+            width: 8,
+            height: 6
+        },
+        animations: {
+            idle: {
+                frames: [0],
+                fps: 0
+            }
+        }
+    };
+    render.coin = {
+        image: resources.coin,
+        size: {
+            width: 2,
+            height: 2
+        },
+        bbox: {
+            X: 0,
+            Y: 0,
+            width: 2,
+            height: 2
+        },
+        animations: {
+            idle: {
+                frames: [0, 1, 2, 3],
+                fps: 5
+            }
+        }
+    };
     render.house = {
         image: resources.house,
         size: {
@@ -159,6 +197,9 @@ var World = function(game, data) {
                         [thing.position.Y + y] = things[things.length - 1];
                 }
             }
+        },
+        getBB: function(thing) {
+            return render[thing].bbox;
         },
         dump: function() {
             var data = { things: [] };

@@ -1,4 +1,4 @@
-/*jshint node:true, bitwise:false */
+/*jshint node:true, bitwise:false, browser:true */
 'use strict';
 var game = require('jsgtb/game');
 var keys = require('jsgtb/keys');
@@ -17,6 +17,17 @@ var gameView = game.canvas.create();
 gameView.size(320, 32);
 resources.on('load', function() {
     var editor = false;
+    var editorMode = {
+        current: 'block'
+    };
+    function selectTool(e) {
+        editorMode.current = e.target.getAttribute('tile');
+    }
+
+    var editorButtons = document.querySelectorAll('#editormode>a');
+    for(var i = 0; i < editorButtons.length; i++) {
+        editorButtons[i].addEventListener('click', selectTool);
+    }
     var play = new game.Object();
     var world = new World(game, data);
     var character = new Character(game, 16, 20);
@@ -66,12 +77,20 @@ resources.on('load', function() {
         }
         var position = {
             X: (e.X / 10 | 0) + scroll,
-            Y: (e.Y / 10 | 0) - 3
+            Y: (e.Y / 10 | 0)
         };
-        world.add({
-            type: 'block',
-            position: position
-        });
+        console.log(e);
+        if(e.button === 0) {
+            world.add({
+                type: editorMode.current,
+                position: position
+            });
+        } else {
+            var thing = world.collides(position.X, position.Y);
+            if(thing) {
+                world.remove(thing);
+            }
+        }
     });
     play.on('draw', function(e) {
         gameView.context.fillStyle = 'white';
@@ -86,7 +105,8 @@ resources.on('load', function() {
         }
         e.canvas.context.drawImage(gameView.element, scroll, 0, 32, 32, 0, 0, 320, 320);
         if(editor) {
-            e.canvas.context.strokeRect((mouse.X / 10 | 0) * 10, (mouse.Y / 10 | 0) * 10, 20, 20);
+            var bb = world.getBB(editorMode.current);
+            e.canvas.context.strokeRect((mouse.X / 10 | 0) * 10 + bb.X * 10, (mouse.Y / 10 | 0) * 10 + bb.Y * 10, bb.width * 10, bb.height * 10);
         }
     });
     play.on('update', function() {
@@ -108,7 +128,7 @@ resources.on('load', function() {
 resources.load({
     'ground': 'images/ground.png',
     'sprites': 'images/sprites3.png',
-    'coin': 'images/coin.png',
+    'coin': 'images/coin2.png',
     'crooked': 'images/32crooked.png',
     'lava': 'images/lava.png',
     'house': 'images/house.png',
@@ -116,5 +136,6 @@ resources.load({
     'sky': 'images/sky.png',
     'enemy': 'images/enemy.png',
     'music': 'audio/music.mp3',
-    'jump': 'audio/jump.wav'
+    'jump': 'audio/jump.wav',
+    'wall': 'images/wall.png',
 });

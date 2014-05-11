@@ -2,13 +2,6 @@
     "things": [
         {
             "position": {
-                "X": 38,
-                "Y": 20
-            },
-            "type": "enemy"
-        },
-        {
-            "position": {
                 "X": 0,
                 "Y": 16
             },
@@ -59,13 +52,6 @@
         {
             "position": {
                 "X": 40,
-                "Y": 24
-            },
-            "type": "ground"
-        },
-        {
-            "position": {
-                "X": 48,
                 "Y": 24
             },
             "type": "ground"
@@ -212,13 +198,6 @@
         },
         {
             "position": {
-                "X": 216,
-                "Y": 24
-            },
-            "type": "ground"
-        },
-        {
-            "position": {
                 "X": 224,
                 "Y": 24
             },
@@ -314,6 +293,251 @@
                 "Y": 14
             },
             "type": "block"
+        },
+        {
+            "position": {
+                "X": 48,
+                "Y": 16
+            },
+            "type": "lava"
+        },
+        {
+            "position": {
+                "X": 69,
+                "Y": 16
+            },
+            "type": "wall"
+        },
+        {
+            "position": {
+                "X": 79,
+                "Y": 10
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 83,
+                "Y": 10
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 87,
+                "Y": 10
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 94,
+                "Y": 13
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 96,
+                "Y": 13
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 98,
+                "Y": 13
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 100,
+                "Y": 13
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 92,
+                "Y": 15
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 102,
+                "Y": 15
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 112,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 134,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 117,
+                "Y": 20
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 59,
+                "Y": 20
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 141,
+                "Y": 8
+            },
+            "type": "house"
+        },
+        {
+            "position": {
+                "X": 160,
+                "Y": 16
+            },
+            "type": "wall"
+        },
+        {
+            "position": {
+                "X": 182,
+                "Y": 16
+            },
+            "type": "wall"
+        },
+        {
+            "position": {
+                "X": 173,
+                "Y": 20
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 168,
+                "Y": 20
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 216,
+                "Y": 16
+            },
+            "type": "lava"
+        },
+        {
+            "position": {
+                "X": 214,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 214,
+                "Y": 17
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 214,
+                "Y": 15
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 212,
+                "Y": 17
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 210,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 212,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 224,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 224,
+                "Y": 17
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 224,
+                "Y": 15
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 226,
+                "Y": 17
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 226,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 228,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 199,
+                "Y": 20
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 195,
+                "Y": 20
+            },
+            "type": "enemy"
         }
     ]
 }
