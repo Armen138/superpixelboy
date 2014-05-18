@@ -387,14 +387,14 @@
         },
         {
             "position": {
-                "X": 117,
+                "X": 121,
                 "Y": 20
             },
             "type": "enemy"
         },
         {
             "position": {
-                "X": 59,
+                "X": 61,
                 "Y": 20
             },
             "type": "enemy"
@@ -429,7 +429,7 @@
         },
         {
             "position": {
-                "X": 168,
+                "X": 171,
                 "Y": 20
             },
             "type": "enemy"
@@ -527,17 +527,262 @@
         },
         {
             "position": {
-                "X": 199,
+                "X": 204,
                 "Y": 20
             },
             "type": "enemy"
         },
         {
             "position": {
-                "X": 195,
+                "X": 200,
                 "Y": 20
             },
             "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 12,
+                "Y": 12
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 15,
+                "Y": 12
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 18,
+                "Y": 12
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 17
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 15
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 13
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 11
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 9
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 7
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 5
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 3
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 317,
+                "Y": 1
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 287,
+                "Y": 19
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 217,
+                "Y": 13
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 220,
+                "Y": 13
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 83,
+                "Y": 8
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 171,
+                "Y": 12
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 177,
+                "Y": 12
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 241,
+                "Y": 16
+            },
+            "type": "wall"
+        },
+        {
+            "position": {
+                "X": 256,
+                "Y": 16
+            },
+            "type": "wall"
+        },
+        {
+            "position": {
+                "X": 256,
+                "Y": 10
+            },
+            "type": "wall"
+        },
+        {
+            "position": {
+                "X": 249,
+                "Y": 21
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 252,
+                "Y": 21
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 251,
+                "Y": 11
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 263,
+                "Y": 14
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 265,
+                "Y": 14
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 267,
+                "Y": 14
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 269,
+                "Y": 14
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 271,
+                "Y": 14
+            },
+            "type": "block"
+        },
+        {
+            "position": {
+                "X": 268,
+                "Y": 13
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 278,
+                "Y": 20
+            },
+            "type": "enemy"
+        },
+        {
+            "position": {
+                "X": 264,
+                "Y": 21
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 267,
+                "Y": 21
+            },
+            "type": "coin"
+        },
+        {
+            "position": {
+                "X": 299,
+                "Y": 16
+            },
+            "type": "door"
         }
     ]
 }

@@ -2,6 +2,7 @@
 'use strict';
 
 var Thing = require('./thing');
+var Enemy = require('./enemy');
 
 var World = function(game, data) {
     var resources = new game.Resources();
@@ -51,6 +52,10 @@ var World = function(game, data) {
                 frames: [0, 1],
                 fps: 5
             },
+            walk: {
+                frames: [0, 1],
+                fps: 5
+            },
             death: {
                 frames: [0, 1, 2, 3, 4, 5],
                 fps: 10,
@@ -73,6 +78,25 @@ var World = function(game, data) {
     };
     render.wall = {
         image: resources.wall,
+        size: {
+            width: 8,
+            height: 8
+        },
+        bbox: {
+            X: 0,
+            Y: 2,
+            width: 8,
+            height: 6
+        },
+        animations: {
+            idle: {
+                frames: [0],
+                fps: 0
+            }
+        }
+    };
+    render.door = {
+        image: resources.door,
         size: {
             width: 8,
             height: 8
@@ -161,11 +185,18 @@ var World = function(game, data) {
     world({
         draw: function(canvas) {
             for(var i = 0; i < things.length; i++) {
+                if(things[i].update) {
+                    things[i].update(world);
+                }
                 things[i].draw(canvas);
             }
         },
         collides: function(x, y) {
-            return map[x][y].gone ? null : map[x][y];
+            if(map[x] && map[x][y]) {
+                return map[x][y].gone ? null : map[x][y];
+            } else {
+                return null;
+            }
         },
         remove: function(thing) {
             console.log('trying to remove thing');
@@ -177,14 +208,31 @@ var World = function(game, data) {
                 }
             }
         },
+        addBB: function(owner, X, Y, bbox) {
+            for(x = bbox.X; x < bbox.X + bbox.width; x++) {
+                for(y = bbox.Y; y < bbox.Y + bbox.height; y++) {
+                    map [X + x]
+                        [Y + y] = owner;
+                }
+            }
+        },
         add: function(thing) {
-            things.push(
-                    new Thing(game,
-                        thing.position.X,
-                        thing.position.Y,
-                        render[thing.type],
-                        thing.type)
-            );
+            if(thing.type === 'enemy') {
+                things.push(
+                        new Enemy(game,
+                            thing.position.X,
+                            thing.position.Y)
+                );
+
+            } else {
+                things.push(
+                        new Thing(game,
+                            thing.position.X,
+                            thing.position.Y,
+                            render[thing.type],
+                            thing.type)
+                );
+            }
             var bbox = render[thing.type].bbox || {
                 X: 0,
                 Y: 0,

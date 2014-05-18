@@ -8,12 +8,13 @@ var World = require('./world');
 var Logo = require('./logo');
 var data = require('./1-1.json');
 var resources = new game.Resources();
-
+//this is the visible canvas
 game.canvas.size(320, 320);
 //wow. such smoothing.
 game.canvas.context.imageSmoothingEnabled = false;
 game.canvas.context.mozImageSmoothingEnabled = false;
 var gameView = game.canvas.create();
+//this where we render the game. Only 32x32 is visible, the rest we scroll around to.
 gameView.size(320, 32);
 resources.on('load', function() {
     var editor = false;
@@ -31,11 +32,19 @@ resources.on('load', function() {
     var play = new game.Object();
     var world = new World(game, data);
     var character = new Character(game, 16, 20);
+    var scroll = 0;
     play.on('init', function() {
-        character.position.X = 16;
-        character.position.Y = 20;
-        character.setAnimation('idle');
-        resources.music.play();
+        scroll = 0;
+        character = new Character(game, 16, 20);
+        world = new World(game, data);
+        //character.position.X = 16;
+        //character.position.Y = 20;
+        //character.setAnimation('idle');
+        resources.music.play(true);
+        character.on('death', function() {
+            console.log('back to title screen');
+            game.state = logo;
+        });
     });
     play.on('clear', function() {
         resources.music.stop();
@@ -50,6 +59,14 @@ resources.on('load', function() {
         if(key.code === keys.UP) {
             character.jump();
         }
+        if(editor) {
+            if(key.code === keys.A) {
+                scroll--;
+            }
+            if(key.code === keys.D) {
+                scroll++;
+            }
+        }
     });
     play.on('keyup', function(key) {
         if (key.code === keys.RIGHT ||
@@ -60,13 +77,13 @@ resources.on('load', function() {
         }
         if(key.code === keys.F2) {
             console.log('secret editor mode.');
+            document.getElementById('editormode').style.display = 'block';
             editor = true;
         }
         if(key.code === keys.F4) {
             world.dump();
         }
     });
-    var scroll = 0;
     var mouse = {X :0, Y: 0};
     play.on('mousemove', function(e) {
         mouse = e;
@@ -118,9 +135,6 @@ resources.on('load', function() {
     logo.on('dismiss', function() {
         game.state = play;
     });
-    character.on('death', function() {
-        game.state = logo;
-    });
     game.state = logo;
     game.run();
 });
@@ -136,6 +150,10 @@ resources.load({
     'sky': 'images/sky.png',
     'enemy': 'images/enemy.png',
     'music': 'audio/music.mp3',
-    'jump': 'audio/jump.wav',
+    'jump': 'audio/jump.mp3',
+    'pickup': 'audio/pickup.mp3',
+    'powerup': 'audio/powerup.mp3',
+    'hurt': 'audio/hurt.mp3',
     'wall': 'images/wall.png',
+    'door': 'images/door.png'
 });

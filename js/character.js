@@ -4,6 +4,7 @@ var Thing = require('./thing');
 
 var Character = function(game, x, y) {
     var resources = new game.Resources();
+    var coins = 0;
     var render = {
         image: resources.sprites,
         size: {
@@ -24,7 +25,7 @@ var Character = function(game, x, y) {
                 frames: [0, 0, 0, 5],
                 fps: 2
             },
-            wall: {
+            death: {
                 frames: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 15, 15, 15, 15, 15],
                 fps: 10,
                 noloop: true
@@ -37,8 +38,15 @@ var Character = function(game, x, y) {
     var jumpTime = 99;
     var grounded = true;
     var dying = false;
-    var die = function() {
+    var die = function(reason) {
+        if(dying) { return; }
+        if(reason) {
+            console.log('died because of ' + reason);
+        } else {
+            console.log('died for no reason.');
+        }
         dying = true;
+        resources.hurt.play();
         character.setAnimation('death', function() {
             dying = false;
             character.fire('death');
@@ -57,15 +65,22 @@ var Character = function(game, x, y) {
             moving = 'idle';
         },
         jump: function() {
-            if(grounded) {
+            if(grounded && !dying) {
                 jumpTime = 0; //Date.now();
                 character.setAnimation('jump');
                 resources.jump.play();
             }
         },
         update: function(world) {
+            var grabCoin = function(coin) {
+                resources.pickup.play();
+                coins++;
+                world.remove(coin);
+            };
             var killEnemy = function(enemy) {
                 character.jump();
+                enemy.idle();
+                resources.powerup.play();
                 enemy.setAnimation('death', function() {
                     world.remove(enemy);
                 });
@@ -76,6 +91,9 @@ var Character = function(game, x, y) {
                 });
             };
             var now = Date.now();
+            //if(dying && character.getAnimation() !== 'death') {
+                //character.setAnimation('death');
+            //}
             if(now - action > 100) {
                 action = now;
                 var leftFoot = world.collides(character.position.X + 1, character.position.Y + 4);
@@ -86,7 +104,7 @@ var Character = function(game, x, y) {
                     grounded = true;
                     if ((leftFoot && leftFoot.type === 'lava') ||
                         (rightFoot && rightFoot.type === 'lava')) {
-                        die();
+                        die('lava');
                     }
                     if((leftFoot && leftFoot.type === 'enemy') ||
                         (rightFoot && rightFoot.type === 'enemy')) {
@@ -100,18 +118,40 @@ var Character = function(game, x, y) {
                             }
                         }
                     }
+                    if(leftFoot && leftFoot.type === 'coin') {
+                        grabCoin(leftFoot);
+                    }
+                    if(rightFoot && rightFoot !== leftFoot && rightFoot.type === 'coin') {
+                        grabCoin(rightFoot);
+                    }
                 }
+                var checkBox = function(box, wallsOnly) {
+                    if(!box) { return; }
+                    if(wallsOnly) {
+                        if(box.type !== 'coin' && box.type !== 'door' && box.type !== 'enemy') {
+                            if(moving === 'left' || moving === 'right') {
+                                moving = 'idle';
+                            }
+                        }
+                        return;
+                    }
+                    if(box.type === 'enemy') { die('enemy'); }
+                    if(box.type === 'coin') {
+                        grabCoin(box);
+                    } else {
+                        if(moving === 'left' || moving === 'right') {
+                            moving = 'idle';
+                        }
+                    }
+                };
                 for(var lf = 0; lf < 4; lf++) {
-                    var box = world.collides(character.position.X, character.position.Y + lf);
-                    if(box && box.type === 'enemy') { die(); }
-                    if(box && moving === 'left') {
-                        moving = 'idle';
-                    }
-                    box = world.collides(character.position.X + 3, character.position.Y + lf);
-                    if(box && box.type === 'enemy') { die(); }
-                    if(box && moving === 'right') {
-                        moving = 'idle';
-                    }
+                    var box = world.collides(character.position.X + 1, character.position.Y + lf);
+                    checkBox(box);
+                    box = world.collides(character.position.X + 2, character.position.Y + lf);
+                    checkBox(box);
+
+                    checkBox(world.collides(character.position.X, character.position.Y + lf), true);
+                    checkBox(world.collides(character.position.X + 3, character.position.Y + lf), true);
                 }
                 if(jumpTime < 8) {
                     character.position.Y--;
@@ -161,6 +201,8 @@ var Character = function(game, x, y) {
                             character.position.X--;
                             break;
                     }
+                } else {
+                    console.log('cant move: dying!');
                 }
             }
         }

@@ -42,8 +42,11 @@ var Thing = function(game, x, y, render, type) {
     };
     thing({
         draw: draw,
+        getAnimation: function() {
+            return animation;
+        },
         setAnimation: function(ani, aniCallback) {
-            if(animation !== ani) {
+            if(animation !== ani && animation !== 'death') { //death cannot be canceled
                 i = 0;
                 animation = ani;
                 callback = aniCallback;
