@@ -7,7 +7,18 @@ var Character = require('./character');
 var World = require('./world');
 var Logo = require('./logo');
 var data = require('./1-1.json');
+var levels = [
+    { name: '1-1', data: require('./1-1.json') },
+    { name: '1-2', data: require('./1-2.json') }
+];
 var resources = new game.Resources();
+//var Physics = require('./physics');
+//console.log(Physics);
+
+//var physics = new Physics();
+
+//console.log(physics);
+
 //this is the visible canvas
 game.canvas.size(320, 320);
 //wow. such smoothing.
@@ -16,6 +27,7 @@ game.canvas.context.mozImageSmoothingEnabled = false;
 var gameView = game.canvas.create();
 //this where we render the game. Only 32x32 is visible, the rest we scroll around to.
 gameView.size(320, 32);
+var level = 0;
 resources.on('load', function() {
     var editor = false;
     var editorMode = {
@@ -36,13 +48,21 @@ resources.on('load', function() {
     play.on('init', function() {
         scroll = 0;
         character = new Character(game, 16, 20);
-        world = new World(game, data);
+        world = new World(game, levels[level].data);
         //character.position.X = 16;
         //character.position.Y = 20;
         //character.setAnimation('idle');
         resources.music.play(true);
         character.on('death', function() {
             console.log('back to title screen');
+            level = 0;
+            game.state = logo;
+        });
+        character.on('win', function() {
+            level++;
+            if(level > levels.length) {
+                level = 0;
+            }
             game.state = logo;
         });
     });
@@ -120,14 +140,24 @@ resources.on('load', function() {
         if(character.position.X > 16) {
             scroll = character.position.X - 16;
         }
+        gameView.context.fillText(levels[level].name, 0, 10);
         e.canvas.context.drawImage(gameView.element, scroll, 0, 32, 32, 0, 0, 320, 320);
         if(editor) {
             var bb = world.getBB(editorMode.current);
             e.canvas.context.strokeRect((mouse.X / 10 | 0) * 10 + bb.X * 10, (mouse.Y / 10 | 0) * 10 + bb.Y * 10, bb.width * 10, bb.height * 10);
         }
     });
+    var action = 0;
     play.on('update', function() {
-        character.update(world);
+        var now = Date.now();
+        var actionTime = false;
+        if(now - action > 100) {
+            actionTime = true;
+            action = now;
+        }
+        //physics.step(now);
+        character.update(world, actionTime);
+        world.update(actionTime);
     });
 
     //game.state = play;
@@ -155,5 +185,7 @@ resources.load({
     'powerup': 'audio/powerup.mp3',
     'hurt': 'audio/hurt.mp3',
     'wall': 'images/wall.png',
-    'door': 'images/door.png'
+    'door': 'images/door.png',
+    'platform': 'images/platform.png',
+    'shortplatform': 'images/shortplatform.png'
 });

@@ -64,9 +64,9 @@ var Enemy = function(game, x, y) {
             enemy.setAnimation('idle');
             moving = 'idle';
         },
-        update: function(world) {
+        update: function(world, actionTime) {
             var now = Date.now();
-            if(now - action > 100) {
+            if(actionTime) {
                 action = now;
                 var leftFoot = world.collides(enemy.position.X + 1, enemy.position.Y + 4);
                 var rightFoot = world.collides(enemy.position.X + 2, enemy.position.Y + 4);

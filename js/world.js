@@ -3,7 +3,10 @@
 
 var Thing = require('./thing');
 var Enemy = require('./enemy');
-
+var Platform = require('./platform');
+var ShortPlatform = function(game, x, y) {
+    return new Platform(game, x, y, true);
+};
 var World = function(game, data) {
     var resources = new game.Resources();
     var things = [];
@@ -66,6 +69,12 @@ var World = function(game, data) {
     render.ground = {
         image: resources.ground,
         size: {
+            width: 8,
+            height: 8
+        },
+        bbox: {
+            X: 0,
+            Y: 0,
             width: 8,
             height: 8
         },
@@ -133,6 +142,30 @@ var World = function(game, data) {
             }
         }
     };
+    render.platform = {
+        size: {
+            width: 16,
+            height: 2
+        },
+        bbox: {
+            X: 0,
+            Y: 0,
+            width: 16,
+            height: 2
+        }
+    };
+    render.shortplatform = {
+        size: {
+            width: 4,
+            height: 2
+        },
+        bbox: {
+            X: 0,
+            Y: 0,
+            width: 4,
+            height: 2
+        }
+    };
     render.house = {
         image: resources.house,
         size: {
@@ -183,11 +216,18 @@ var World = function(game, data) {
     };
     var world = new game.Object();
     world({
-        draw: function(canvas) {
+        update: function(actionTime) {
             for(var i = 0; i < things.length; i++) {
                 if(things[i].update) {
-                    things[i].update(world);
+                    things[i].update(world, actionTime);
                 }
+            }
+        },
+        draw: function(canvas) {
+            for(var i = 0; i < things.length; i++) {
+                //if(things[i].update) {
+                    //things[i].update(world);
+                //}
                 things[i].draw(canvas);
             }
         },
@@ -217,22 +257,54 @@ var World = function(game, data) {
             }
         },
         add: function(thing) {
-            if(thing.type === 'enemy') {
-                things.push(
-                        new Enemy(game,
-                            thing.position.X,
-                            thing.position.Y)
-                );
+            switch(thing.type) {
+                case 'enemy':
+                    things.push(
+                            new Enemy(game,
+                                thing.position.X,
+                                thing.position.Y)
+                    );
+                    break;
+                case 'platform':
+                    things.push(
+                            new Platform(game,
+                                thing.position.X,
+                                thing.position.Y)
+                    );
+                    break;
+                case 'shortplatform':
+                    things.push(
+                            new ShortPlatform(game,
+                                thing.position.X,
+                                thing.position.Y)
+                    );
+                    break;
+                default:
+                    things.push(
+                            new Thing(game,
+                                thing.position.X,
+                                thing.position.Y,
+                                render[thing.type],
+                                thing.type)
+                    );
 
-            } else {
-                things.push(
-                        new Thing(game,
-                            thing.position.X,
-                            thing.position.Y,
-                            render[thing.type],
-                            thing.type)
-                );
             }
+            //if(thing.type === 'enemy') {
+                //things.push(
+                        //new Enemy(game,
+                            //thing.position.X,
+                            //thing.position.Y)
+                //);
+
+            //} else {
+                //things.push(
+                        //new Thing(game,
+                            //thing.position.X,
+                            //thing.position.Y,
+                            //render[thing.type],
+                            //thing.type)
+                //);
+            //}
             var bbox = render[thing.type].bbox || {
                 X: 0,
                 Y: 0,

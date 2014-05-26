@@ -11,6 +11,12 @@ var Character = function(game, x, y) {
             width: 4,
             height: 4
         },
+        bbox: {
+            X: 1,
+            Y: 0,
+            width: 2,
+            height: 4
+        },
         animations: {
             walk: {
                 frames: [1, 2, 3, 4],
@@ -71,7 +77,7 @@ var Character = function(game, x, y) {
                 resources.jump.play();
             }
         },
-        update: function(world) {
+        update: function(world, actionTime) {
             var grabCoin = function(coin) {
                 resources.pickup.play();
                 coins++;
@@ -94,7 +100,8 @@ var Character = function(game, x, y) {
             //if(dying && character.getAnimation() !== 'death') {
                 //character.setAnimation('death');
             //}
-            if(now - action > 100) {
+            //if(now - action > 100) {
+            if(actionTime) {
                 action = now;
                 var leftFoot = world.collides(character.position.X + 1, character.position.Y + 4);
                 var rightFoot = world.collides(character.position.X + 2, character.position.Y + 4);
@@ -102,6 +109,10 @@ var Character = function(game, x, y) {
                     grounded = false;
                 } else {
                     grounded = true;
+                    if ((leftFoot && leftFoot.type === 'platform') ||
+                        (rightFoot && rightFoot.type === 'platform')) {
+                        character.position.X += (leftFoot || rightFoot).direction === 'right' ? 1 : -1;
+                    }
                     if ((leftFoot && leftFoot.type === 'lava') ||
                         (rightFoot && rightFoot.type === 'lava')) {
                         die('lava');
@@ -126,32 +137,43 @@ var Character = function(game, x, y) {
                     }
                 }
                 var checkBox = function(box, wallsOnly) {
-                    if(!box) { return; }
+                    if(!box) { return false; }
                     if(wallsOnly) {
                         if(box.type !== 'coin' && box.type !== 'door' && box.type !== 'enemy') {
-                            if(moving === 'left' || moving === 'right') {
-                                moving = 'idle';
-                            }
+                            //if(moving === 'left' || moving === 'right') {
+                                //moving = 'idle';
+                            //}
+                            return true;
                         }
-                        return;
+                        return false;
                     }
+                    if(box.type === 'door') { character.fire('win'); }
                     if(box.type === 'enemy') { die('enemy'); }
                     if(box.type === 'coin') {
                         grabCoin(box);
                     } else {
-                        if(moving === 'left' || moving === 'right') {
-                            moving = 'idle';
-                        }
+                        return true;
+                        //if(moving === 'left' || moving === 'right') {
+                            //moving = 'idle';
+                        //}
                     }
                 };
                 for(var lf = 0; lf < 4; lf++) {
                     var box = world.collides(character.position.X + 1, character.position.Y + lf);
-                    checkBox(box);
+                    if(checkBox(box) && moving === 'left') {
+                        moving = 'idle';
+                    }
                     box = world.collides(character.position.X + 2, character.position.Y + lf);
-                    checkBox(box);
+                    if(checkBox(box) && moving === 'right') {
+                        moving = 'idle';
+                    }
 
-                    checkBox(world.collides(character.position.X, character.position.Y + lf), true);
-                    checkBox(world.collides(character.position.X + 3, character.position.Y + lf), true);
+                    if(moving === 'left' && checkBox(world.collides(character.position.X, character.position.Y + lf), true)) {
+                        moving = 'idle';
+                    }
+                    if(moving === 'right' && checkBox(world.collides(character.position.X + 3, character.position.Y + lf), true)) {
+                        moving = 'idle';
+                    }
                 }
                 if(jumpTime < 8) {
                     character.position.Y--;

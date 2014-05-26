@@ -19,7 +19,8 @@ module.exports = function(grunt) {
         },
         jshint: {
             all: [
-                "js/**/*.js"
+                "js/**/*.js",
+                "!js/physics.js"
             ]
         }
     });
