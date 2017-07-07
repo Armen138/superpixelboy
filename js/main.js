@@ -1,7 +1,9 @@
 /*jshint node:true, bitwise:false, browser:true */
 'use strict';
-var game = require('jsgtb/game');
-var keys = require('jsgtb/keys');
+var jsgtb = require('jsgtb');
+
+var game = jsgtb.game; //require('jsgtb/game');
+var keys = jsgtb.keys; //require('jsgtb/keys');
 
 var Character = require('./character');
 var World = require('./world');
@@ -20,11 +22,11 @@ var resources = new game.Resources();
 //console.log(physics);
 
 //this is the visible canvas
-game.canvas.size(320, 320);
+jsgtb.canvas.size(320, 320);
 //wow. such smoothing.
-game.canvas.context.imageSmoothingEnabled = false;
-game.canvas.context.mozImageSmoothingEnabled = false;
-var gameView = game.canvas.create();
+jsgtb.canvas.context.imageSmoothingEnabled = false;
+jsgtb.canvas.context.mozImageSmoothingEnabled = false;
+var gameView = jsgtb.canvas.create();
 //this where we render the game. Only 32x32 is visible, the rest we scroll around to.
 gameView.size(320, 32);
 var level = 0;
@@ -41,7 +43,7 @@ resources.on('load', function() {
     for(var i = 0; i < editorButtons.length; i++) {
         editorButtons[i].addEventListener('click', selectTool);
     }
-    var play = new game.Object();
+    var play = new jsgtb.GameObject();
     var world = new World(game, data);
     var character = new Character(game, 16, 20);
     var scroll = 0;

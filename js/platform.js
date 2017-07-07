@@ -1,5 +1,6 @@
 /*jshint node:true */
 'use strict';
+var jsgtb = require('jsgtb');
 var Thing = require('./thing');
 
 var Platform = function(game, x, y, short) {
@@ -32,7 +33,7 @@ var Platform = function(game, x, y, short) {
         render.size.width = 4;
         render.image = resources.shortplatform;
     }
-    var platform = new game.Object();
+    var platform = new jsgtb.GameObject();
     var moving = 'right';
     platform.direction = moving;
     var action = 0;

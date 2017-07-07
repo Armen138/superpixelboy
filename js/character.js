@@ -1,5 +1,6 @@
 /*jshint node:true */
 'use strict';
+var jsgtb = require('jsgtb');
 var Thing = require('./thing');
 
 var Character = function(game, x, y) {
@@ -38,7 +39,7 @@ var Character = function(game, x, y) {
             }
         }
     };
-    var character = new game.Object();
+    var character = new jsgtb.GameObject();
     var moving = 'idle';
     var action = 0;
     var jumpTime = 99;

@@ -1,6 +1,7 @@
 /*jshint node:true, bitwise:false */
 'use strict';
 
+var jsgtb = require('jsgtb');
 var Thing = require('./thing');
 var Enemy = require('./enemy');
 var Platform = require('./platform');
@@ -214,7 +215,7 @@ var World = function(game, data) {
             }
         }
     };
-    var world = new game.Object();
+    var world = new jsgtb.GameObject();
     world({
         update: function(actionTime) {
             for(var i = 0; i < things.length; i++) {

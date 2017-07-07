@@ -1,7 +1,9 @@
 /*jshint node:true */
 'use strict';
+var jsgtb = require('jsgtb');
+
 var Thing = function(game, x, y, render, type) {
-    var thing = new game.Object();
+    var thing = new jsgtb.GameObject();
     var animation = 'idle';
     var callback = null;
     var now = Date.now();

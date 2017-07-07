@@ -1,5 +1,6 @@
 /*jshint node:true */
 'use strict';
+var jsgtb = require('jsgtb');
 var Thing = require('./thing');
 
 var Enemy = function(game, x, y) {
@@ -32,7 +33,7 @@ var Enemy = function(game, x, y) {
             }
         }
     };
-    var enemy = new game.Object();
+    var enemy = new jsgtb.GameObject();
     var moving = 'right';
     var action = 0;
     var grounded = true;

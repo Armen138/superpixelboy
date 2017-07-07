@@ -1,9 +1,10 @@
 /*jshint node:true */
 'use strict';
 
+var jsgtb = require('jsgtb');
 var Logo = function(game) {
     var resources = new game.Resources();
-    var logo = new game.Object();
+    var logo = new jsgtb.GameObject();
     var close = false;
     var start, alpha;
     logo.on('init', function() {
